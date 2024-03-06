@@ -1,0 +1,38 @@
+body {
+  background: #e0e4ed;
+  font-family: Roboto, sans-serif;
+}
+a {
+  color: #153452;
+}
+
+.app {
+  background: #92afcd;
+  border-radius: 6px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+  padding: 10px;
+  width: 50%;
+}
+.search {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 4px;
+  border-style: none;
+}
+.search-city {
+  background: #e0e4ed;
+  height: 30px;
+  width: 60%;
+  border-radius: 4px;
+  border-style: none;
+  margin-right: 8px;
+}
+.search button {
+  background: #153452;
+  color: #e0e4ed;
+  border-radius: 4px;
+  border-style: none;
+  width: 20%;
+}
