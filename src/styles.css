@@ -71,6 +71,9 @@ hr {
   display: flex;
   justify-content: space-around;
 }
+.condition-description {
+  padding-top: 16px;
+}
 .condition-value {
   color: #93313e;
   font-weight: bold;
