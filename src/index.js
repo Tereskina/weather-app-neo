@@ -91,4 +91,28 @@ function handleSearchSubmit(event) {
 let searchFormElement = document.getElementById("search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
-searchCity("Yakutsk");
+searchCity("Oymyakon");
+
+function displayForecast() {
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHtml = "";
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `
+      <div class="row">
+        <div class="col-2">
+            <div class="forecast-day">${day}</div>
+            <div class="forecast-emoji">☀️</div>
+            <div class="forecast-temperature">
+                <span class="forecast-min-temperature">1°</span>
+                <span class="forecast-max-temperature">10°</span>
+            </div>
+          </div>
+        </div>
+      `;
+  });
+  let forecastElement = document.getElementById("forecast");
+  forecastElement.innerHTML = forecastHtml;
+}
+displayForecast();
