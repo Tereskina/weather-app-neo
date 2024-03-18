@@ -20,7 +20,8 @@ function refreshWeather(response) {
   currentHumidityElement.innerHTML = `${currentHumidity}%`;
   currentWindSpeedElement.innerHTML = `${currentWindSpeed} km/h`;
   cityElement.innerHTML = response.data.city;
-  console.log(response.data);
+
+  getForecast(response.data.city);
 }
 
 function formatDate(date) {
@@ -91,28 +92,41 @@ function handleSearchSubmit(event) {
 let searchFormElement = document.getElementById("search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
-searchCity("Oymyakon");
-
-function displayForecast() {
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[date.getDay()];
+}
+
+function getForecast(city) {
+  let apiKey = "af452f84910t3od515bb3246f723ee9b";
+  let apiURL = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiURL).then(displayForecast);
+}
+
+function displayForecast(response) {
   let forecastHtml = "";
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      `
+  response.data.daily.forEach(function (day, index) {
+    if (index < 5) {
+      forecastHtml += `
       <div class="row">
-        <div class="col-2">
-            <div class="forecast-day">${day}</div>
-            <div class="forecast-emoji">☀️</div>
-            <div class="forecast-temperature">
-                <span class="forecast-min-temperature">1°</span>
-                <span class="forecast-max-temperature">10°</span>
+            <div class="forecast-day">${formatDay(day.time)}</div>
+            <div class="forecast-emoji">
+              <img src="${day.condition.icon_url}" class="forecast-emoji-icon"/>
             </div>
-          </div>
+            <div class="forecast-temperature">
+                <span class="forecast-min-temperature">${Math.round(
+                  day.temperature.minimum
+                )}°</span>
+                <span class="forecast-max-temperature">${Math.round(
+                  day.temperature.maximum
+                )}°</span>
+            </div>
         </div>
       `;
+    }
   });
   let forecastElement = document.getElementById("forecast");
   forecastElement.innerHTML = forecastHtml;
 }
-displayForecast();
+searchCity("Oymyakon");
